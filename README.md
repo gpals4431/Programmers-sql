@@ -1,6 +1,35 @@
 # Programmers-sql
 - Mysql을 이용하여 문제를 진행하였습니다.
 
+## JOIN >
+<hr>
+Q. '경제' 카테고리에 속하는 도서들의 도서 ID(BOOK_ID), 저자명(AUTHOR_NAME), 출판일(PUBLISHED_DATE) 리스트를 출력하는 SQL문을 작성해주세요.
+결과는 출판일을 기준으로 오름차순 정렬해주세요.
+````
+-- 코드를 입력하세요
+SELECT BOOK_ID, AUTHOR_NAME, DATE_FORMAT(PUBLISHED_DATE,'%Y-%m-%d') as PUBLISHED_DATE
+from book as B
+join author as A
+on B.author_id =A.author_id
+where category like '%경제%'
+order by PUBLISHED_DATE;
+````
+
+Q. ANIMAL_INS 테이블은 동물 보호소에 들어온 동물의 정보를 담은 테이블입니다. ANIMAL_INS 테이블 구조는 다음과 같으며, ANIMAL_ID, ANIMAL_TYPE, DATETIME, INTAKE_CONDITION, NAME, SEX_UPON_INTAKE는 각각 동물의 아이디, 생물 종, 보호 시작일, 보호 시작 시 상태, 이름, 성별 및 중성화 여부를 나타냅니다.
+ANIMAL_OUTS 테이블은 동물 보호소에서 입양 보낸 동물의 정보를 담은 테이블입니다. ANIMAL_OUTS 테이블 구조는 다음과 같으며, ANIMAL_ID, ANIMAL_TYPE, DATETIME, NAME, SEX_UPON_OUTCOME는 각각 동물의 아이디, 생물 종, 입양일, 이름, 성별 및 중성화 여부를 나타냅니다. ANIMAL_OUTS 테이블의 ANIMAL_ID는 ANIMAL_INS의 ANIMAL_ID의 외래 키입니다.
+
+천재지변으로 인해 일부 데이터가 유실되었습니다. 입양을 간 기록은 있는데, 보호소에 들어온 기록이 없는 동물의 ID와 이름을 ID 순으로 조회하는 SQL문을 작성해주세요.
+````
+Select O.animal_id, O.name
+from animal_ins as I 
+right join animal_outs as O
+on I.animal_id = O.animal_id
+WHERE I.ANIMAL_ID IS NULL
+````
+A. Right JOin 오른쪽의 있는 모든 값을 출력 가능
+문제에서 나간기록은 있는데 들어온 기록이 없는 동물을 출력하라고함
+그래서 right join을 이용해서 outs에 있는 동물을 검색한 후 
+조건절에 in에는 없는 조건식을 준다.
 
 ## GROUP BY >
 <hr>
